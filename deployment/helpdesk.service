@@ -1,0 +1,16 @@
+[Unit]
+Description=Gunicorn daemon for AI Helpdesk Web Application
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/var/www/helpdesk/backend
+Environment="PATH=/var/www/helpdesk/backend/.venv/bin"
+EnvironmentFile=/var/www/helpdesk/backend/.env
+ExecStart=/var/www/helpdesk/backend/.venv/bin/gunicorn -c /var/www/helpdesk/deployment/gunicorn.conf.py run:app
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
